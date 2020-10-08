@@ -1,23 +1,23 @@
 import React, { useEffect, useRef, useState } from "react";
 
 function SortPopup({ items }) {
-  const [visiblePopup, setvisiblePopup] = useState(false);
+  const [visiblePopup, setVisiblePopup] = useState(false);
   const [activeItem, setActiveItem] = useState(0);
   const sortRef = useRef();
   const activeLabel = items[activeItem];
-  const toogleVisiblePopup = () => {
-    setvisiblePopup(!visiblePopup);
+  const toggleVisiblePopup = () => {
+    setVisiblePopup(!visiblePopup);
   };
 
   const handleOutsideClick = (e) => {
     if (!e.path.includes(sortRef.current)) {
-      setvisiblePopup(false);
+      setVisiblePopup(false);
     }
   };
 
   const onSelectItem = (index) => {
     setActiveItem(index);
-    setvisiblePopup(false);
+    setVisiblePopup(false);
   };
 
   useEffect(() => {
@@ -41,7 +41,7 @@ function SortPopup({ items }) {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={toogleVisiblePopup}>{activeLabel}</span>
+        <span onClick={toggleVisiblePopup}>{activeLabel}</span>
       </div>
       {visiblePopup && (
         <div className="sort__popup">
