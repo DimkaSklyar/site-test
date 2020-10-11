@@ -38,7 +38,7 @@ function PizzaBlock({ imageUrl, name, types, sizes, price, category, rating }) {
         <ul>
           {sizesPizza.map((size, index) => (
             <li
-              onClick={() => onActiveSize(index)}
+              onClick={() => onActiveSize(size)}
               key={`${size}_${index}`}
               className={classNames({
                 active: activeSize === size,
@@ -72,6 +72,5 @@ function PizzaBlock({ imageUrl, name, types, sizes, price, category, rating }) {
     </div>
   );
 }
-
 
 export default PizzaBlock;
