@@ -1,11 +1,20 @@
 import React, { useState } from "react";
 import classNames from "classnames";
+import Button from "../Button";
 
-function PizzaBlock({ imageUrl, name, types, sizes, price, category, rating }) {
+function PizzaBlock({
+  id,
+  imageUrl,
+  name,
+  types,
+  sizes,
+  price,
+  onClickAddPizza,
+}) {
   const typesPizza = ["тонкое", "традиционное"];
   const sizesPizza = [26, 30, 40];
 
-  const [activeSize, setActiveSize] = useState(sizes[0]);
+  const [activeSize, setActiveSize] = useState(0);
   const [activeType, setActiveType] = useState(types[0]);
 
   const onActiveSize = (index) => {
@@ -14,6 +23,18 @@ function PizzaBlock({ imageUrl, name, types, sizes, price, category, rating }) {
 
   const onActiveType = (index) => {
     setActiveType(index);
+  };
+
+  const onAddPizza = () => {
+    const obj = {
+      id,
+      name,
+      imageUrl,
+      price,
+      size: sizesPizza[activeSize],
+      type: typesPizza[activeType],
+    };
+    onClickAddPizza(obj);
   };
 
   return (
@@ -38,10 +59,10 @@ function PizzaBlock({ imageUrl, name, types, sizes, price, category, rating }) {
         <ul>
           {sizesPizza.map((size, index) => (
             <li
-              onClick={() => onActiveSize(size)}
+              onClick={() => onActiveSize(index)}
               key={`${size}_${index}`}
               className={classNames({
-                active: activeSize === size,
+                active: activeSize === index,
                 disabled: !sizes.includes(size),
               })}
             >
@@ -52,7 +73,7 @@ function PizzaBlock({ imageUrl, name, types, sizes, price, category, rating }) {
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">от {price} ₽</div>
-        <div className="button button--outline button--add">
+        <Button onClick={onAddPizza} className="button--add" outline>
           <svg
             width="12"
             height="12"
@@ -67,7 +88,7 @@ function PizzaBlock({ imageUrl, name, types, sizes, price, category, rating }) {
           </svg>
           <span>Добавить</span>
           <i>2</i>
-        </div>
+        </Button>
       </div>
     </div>
   );

@@ -8,8 +8,8 @@ import {
 } from "../components";
 
 import { setCategory, setSortBy } from "../redux/actions/filters";
-
 import { fetchPizzas } from "../redux/actions/pizzas";
+import { addPizzaToCart } from "../redux/actions/cart";
 
 const categoryNames = [
   "Мясные",
@@ -39,6 +39,10 @@ function Home() {
     dispatch(setSortBy(type));
   }, []);
 
+  const handleAddPizzaToCart = (obj) => {
+    dispatch(addPizzaToCart(obj));
+  };
+
   React.useEffect(() => {
     dispatch(fetchPizzas(category, sortBy));
   }, [category, sortBy]);
@@ -60,8 +64,17 @@ function Home() {
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
         {isLoaded
-          ? items.map((item) => <PizzaBlock key={item.id} {...item} />)
-          : Array(12).fill(<PizzaLoadingBlock />)}
+          ? items.map((item) => (
+              <PizzaBlock
+                key={item.id}
+                isLoaded={true}
+                {...item}
+                onClickAddPizza={handleAddPizzaToCart}
+              />
+            ))
+          : Array(12)
+              .fill(0)
+              .map((_, index) => <PizzaLoadingBlock key={index} />)}
       </div>
     </div>
   );
