@@ -10,7 +10,8 @@ function PizzaBlock({
   sizes,
   price,
   onClickAddPizza,
-  addedCount
+  addedCount,
+  onRemove,
 }) {
   const typesPizza = ["тонкое", "традиционное"];
   const sizesPizza = [26, 30, 40];
