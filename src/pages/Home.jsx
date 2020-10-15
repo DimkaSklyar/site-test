@@ -68,7 +68,7 @@ function Home() {
           ? items.map((item) => (
               <PizzaBlock
                 key={item.id}
-                addedCount={cartItems[item.id] && cartItems[item.id].length}
+                addedCount={cartItems[item.id] && cartItems[item.id].items.length}
                 {...item}
                 onClickAddPizza={handleAddPizzaToCart}
               />
